@@ -4,7 +4,7 @@ import type { TableProps } from 'antd';
 import VirtualList from 'rc-virtual-list';
 import { useRef } from 'react';
 import dayjs from 'dayjs';
-import { service } from './http';
+import service from './http';
 
 const { RangePicker } = DatePicker;
 const App = () => {
@@ -19,7 +19,6 @@ const App = () => {
     setS({ loading: true });
     service({ url: '/users', method: 'GET', params })
       .then((res: any) => {
-        form.setFieldsValue({ name: '' });
         setS({
           list: res.data,
           loading: false,
@@ -37,7 +36,7 @@ const App = () => {
   const columns: TableProps<any>['columns'] = [
     {
       title: '名称',
-      dataIndex: 'nickname',
+      dataIndex: 'name',
       width: 60,
     },
     {
@@ -84,7 +83,7 @@ const App = () => {
             </Form.Item>
           </Col>
           <Col span={span}>
-            <Form.Item name="nickname" label="名称">
+            <Form.Item name="name" label="名称">
               <Input className="w-100" allowClear />
             </Form.Item>
           </Col>
@@ -134,7 +133,7 @@ const App = () => {
           <VirtualList data={s.list} height={ContainerHeight} itemHeight={40} itemKey="mobile">
             {(item) => (
               <List.Item key={item.mobile}>
-                <List.Item.Meta title={item.mobile} description={item.nickname} />
+                <List.Item.Meta title={item.mobile} description={item.name} />
               </List.Item>
             )}
           </VirtualList>
